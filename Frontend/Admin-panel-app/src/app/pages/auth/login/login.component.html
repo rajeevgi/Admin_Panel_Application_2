@@ -1,0 +1,25 @@
+<div class="parent">
+  <div class="container">
+    <div class="card">
+      <h2>Login</h2>
+
+      <form (ngSubmit)="onLogin()">
+
+        <div class="form-group">
+          <label class="form-label">Email:</label>
+          <input type="email" class="form-control" name="email" [(ngModel)]="user.email" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Password:</label>
+          <input type="password" class="form-control" name="password" [(ngModel)]="user.password" required>
+        </div>
+
+        <button type="submit">Login</button>
+        <button type="button" class="btn btn-link" routerLink="/app-register">
+          Don't have an account? Register
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

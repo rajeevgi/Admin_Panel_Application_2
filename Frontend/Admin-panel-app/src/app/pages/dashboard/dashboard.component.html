@@ -1,0 +1,107 @@
+<!-- USER & ADMIN CARDS -->
+<div class="row pt-3 d-flex justify-content-center align-items-center text-center">
+    <div class="col-md-5">
+      <div class="card bg-light shadow-sm" style="cursor: pointer;" (click)="showUserTableOnly()">
+        <div class="card-body">
+          <h5>Total Users</h5>
+          <h2>{{ totalUsers }}</h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="card bg-light shadow-sm" style="cursor: pointer;" (click)="showAdminTableOnly()">
+        <div class="card-body">
+          <h5>Total Admins</h5>
+          <h2>{{ totalAdmins }}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- USER TABLE -->
+  <div *ngIf="showUserTable">
+    <h3 class="text-center pt-3">User Dashboard</h3>
+    <div class="container pt-3">
+      <div class="col-12">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr class="text-center">
+              <th>Id</th>
+              <th>UserName</th>
+              <th>Email</th>
+              <th>Password</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users" class="text-center">
+              <td>{{ user.id }}</td>
+              <td>{{ user.username }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.password }}</td>
+              <td>
+                <button type="button" class="btn btn-success mx-2" (click)="onUpdateUser(user.id)">Update</button>
+                <button type="button" class="btn btn-danger mx-2" (click)="onDeleteUser(user.id)">Delete</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#profileModal" (click)="getProfile(user)">Profile</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  <!-- ADMIN TABLE -->
+  <div *ngIf="showAdminTable">
+    <h3 class="text-center pt-3">Admin Dashboard</h3>
+    <div class="container pt-3">
+      <div class="col-12">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr class="text-center">
+              <th>Id</th>
+              <th>UserName</th>
+              <th>Email</th>
+              <th>Password</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let admin of admins" class="text-center">
+              <td>{{ admin.id }}</td>
+              <td>{{ admin.username }}</td>
+              <td>{{ admin.email }}</td>
+              <td>{{ admin.password }}</td>
+              <td>
+                <button type="button" class="btn btn-success mx-2" (click)="onUpdateAdmin(admin.id)">Update</button>
+                <button type="button" class="btn btn-danger mx-2" (click)="onDeleteAdmin(admin.id)">Delete</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#profileModal" (click)="getProfile(admin)">Profile</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  <!-- PROFILE MODAL (Shared by both User & Admin) -->
+  <div class="modal fade" id="profileModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="profileModalLabel">{{ selectedProfile?.username }}'s Profile</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>ID:</strong> {{ selectedProfile?.id }}</p>
+          <p><strong>Username:</strong> {{ selectedProfile?.username }}</p>
+          <p><strong>Email:</strong> {{ selectedProfile?.email }}</p>
+          <p><strong>Password:</strong> {{ selectedProfile?.password }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

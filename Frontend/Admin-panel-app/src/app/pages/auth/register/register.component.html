@@ -1,0 +1,48 @@
+<div class="parent">
+    <div class="container">
+      <div class="card">
+        <h2>Register as {{ User.role === 'Admin' ? 'Admin' : 'User' }}</h2>
+  
+        <div class="form-group">
+          <label class="form-label">Select Type:</label>
+          <select class="form-control" [(ngModel)]="User.role">
+            <option [ngValue]="'User'">User</option>
+            <option [ngValue]="'Admin'">Admin</option>
+          </select>
+        </div>
+  
+        <form (ngSubmit)="onRegister()">
+          @if (User.role == 'User') {
+          <div class="form-group">
+            <label class="form-label">Name:</label>
+            <input type="text" id="username" name="username" class="form-control" [(ngModel)]="User.username" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email:</label>
+            <input type="email" id="email" name="email" class="form-control" [(ngModel)]="User.email" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password:</label>
+            <input type="password" id="password" name="password" class="form-control" [(ngModel)]="User.password" required>
+          </div>
+          } @else if(User.role === 'Admin'){
+          <div class="form-group">
+            <label class="form-label">Username:</label>
+            <input type="text" id="username" name="username" class="form-control" [(ngModel)]="User.username" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password:</label>
+            <input type="password" id="password" name="password" class="form-control" [(ngModel)]="User.password" required>
+          </div>
+          }
+  
+          <button type="submit">Register</button>
+  
+          <button type="button" class="btn btn-link" routerLink="/app-login">
+            Already have an account? Login
+          </button>
+        </form>
+  
+      </div>
+    </div>
+  </div>
