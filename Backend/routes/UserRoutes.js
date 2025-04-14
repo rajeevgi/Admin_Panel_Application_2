@@ -79,13 +79,11 @@ router.post('/register', userController.register);
  *             schema:
  *               type: object
  *               properties:
- *                 token:
+ *                 connect.sid:
  *                   type: string
  *                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
  */
 router.post('/login', userController.login);
-
-
 
 // Get All Users
 router.get('/getAllUsers', Auth.isAuthenticated, Auth.isAdmin, userController.getAllUsers);

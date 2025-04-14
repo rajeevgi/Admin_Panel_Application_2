@@ -15,10 +15,10 @@ exports.login = (email, password, callback) => {
   }
 };
 
-exports.register = (username, email, password, role, callback) => {
+exports.register = (username, email, password, role, created_by, callback) => {
     try {
-        const sql = "Insert into users (username, email, password, role) values(?,?,?,?)";
-        db.query(sql, [username, email, password, role], (err, result) => {
+        const sql = "Insert into users (username, email, password, role, created_by) values(?,?,?,?,?)";
+        db.query(sql, [username, email, password, role, created_by], (err, result) => {
             if (err) return callback(err, null);
             callback(null, { id: result.insertId, email });
         });
@@ -27,9 +27,9 @@ exports.register = (username, email, password, role, callback) => {
     }
 }
 
-exports.addUser = (username, email, password, role, callback) => {
+exports.addUser = (username, email, password, role, created_by, callback) => {
     try {
-        const sql = "Insert into users(username, email, password, role) values(?,?,?,?)";
+        const sql = "Insert into users(username, email, password, role, created_by) values(?,?,?,?,?)";
         db.query(sql, [username, email, password, role], (err, result) => {
             if (err) return callback(err, null);
             callback(null, { id: result.insertId, email });

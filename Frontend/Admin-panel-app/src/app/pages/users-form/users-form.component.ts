@@ -17,6 +17,7 @@ export class UsersFormComponent implements OnInit {
     email: '',
     password: '',
     role: 'User',
+    created_by : null
   };
 
   isUpdatedMode : boolean = false;
@@ -25,6 +26,15 @@ export class UsersFormComponent implements OnInit {
   constructor(private userService: UserService, public router: Router, private route : ActivatedRoute) {}
 
   ngOnInit(): void {
+
+    let loggedInUser : any = null;
+
+    if(this.formData.role === 'Superadmin'){
+      loggedInUser = JSON.parse(sessionStorage.getItem('Superadmin-data') || '{}');
+    }else{
+      loggedInUser = JSON.parse(sessionStorage.getItem('Admin-data') || '{}');
+    }
+
     this.route.params.subscribe(params => {
       if(params['id']){
         this.isUpdatedMode = true;
@@ -36,7 +46,8 @@ export class UsersFormComponent implements OnInit {
           username :'',
           email : '',
           password : '',
-          role : 'User'
+          role : 'User',
+          created_by : loggedInUser?.id || null
         }
       }
     });

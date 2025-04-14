@@ -16,7 +16,8 @@ exports.login = (req, res) => {
             username: result.username,
             email: result.email,
             password: result.password,
-            role: result.role
+            role: result.role,
+            createdBy : result.created_by
         };
 
         return res.status(200).json({ message: "User login Successful", user: req.session.user });
@@ -25,13 +26,13 @@ exports.login = (req, res) => {
 
 
 exports.register = (req, res) => {
-    const { username, email, password, role } = req.body;
+    const { username, email, password, role, created_by } = req.body;
 
-    if(!username || !email || !password || !role){
+    if(!username || !email || !password || !role || !created_by){
         return res.status(400).json({ message : "All Fields are required!" });
     }
 
-    User.register(username, email, password, role, (err, result) => {
+    User.register(username, email, password, role, created_by, (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
         
         res.status(200).json({ message : "User registered Successfully...", result });
@@ -39,13 +40,13 @@ exports.register = (req, res) => {
 }
 
 exports.addUser = (req, res) => {
-    const { username, email, password, role } = req.body;
+    const { username, email, password, role, created_by } = req.body;
 
-    if (!username || !email || !password || !role) {
+    if (!username || !email || !password || !role || !created_by) {
         return res.status(400).json({ message: "All fields are required" });
     }
 
-    User.register(username, email, password, role, (err, result) => {
+    User.register(username, email, password, role, created_by, (err, result) => {
         if (err) return res.status(500).json({ error: err.message });
         res.status(201).json({ message: "User added successfully", result });
     });

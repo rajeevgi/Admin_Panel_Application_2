@@ -43,6 +43,7 @@ const swaggerDefinition = {
     servers: [
       {
         url: "http://localhost:5000",
+        description: 'Development Server'
       },
     ],
   },
@@ -64,6 +65,6 @@ const port = process.env.PORT || 5000;
 
 app.listen(port, "localhost", () => {
   console.log(`Server is running at http://localhost:${port}`);
-   console.log("Swagger UI available at http://localhost:5000/api-doc");
+   console.log("Swagger UI available at http://localhost:5000/api-docs");
 
 });
