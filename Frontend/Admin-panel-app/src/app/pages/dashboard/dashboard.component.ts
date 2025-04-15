@@ -14,7 +14,6 @@ declare var bootstrap: any;
   styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent implements OnInit {
-  // user: User = new User();
   user: Partial<User> = {};
 
   userList: any[] = [];
@@ -33,6 +32,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     const superAdminData = sessionStorage.getItem('Superadmin-data');
     const adminData = sessionStorage.getItem('Admin-data');
+    const userData = sessionStorage.getItem('User-data');
 
     if (superAdminData) {
       const data = JSON.parse(superAdminData);
@@ -42,6 +42,14 @@ export class DashboardComponent implements OnInit {
       const data = JSON.parse(adminData);
       this.loggedInUser = data?.id || 0;
       this.user = { role: 'Admin' };
+    } else if (userData) {
+      const data = JSON.parse(userData);
+      this.loggedInUser = data?.id || 0;
+      this.user = data;
+    } else {
+      alert('Session expired! Please log in again.');
+      this.router.navigateByUrl('/app-login');
+      return;
     }
 
     this.getAllUsersAndAdmins();
@@ -121,6 +129,9 @@ export class DashboardComponent implements OnInit {
     this.filteredAdmins = this.admins.filter(
       (a: any) => a.created_by === this.loggedInUser
     );
+
+    const modal = new bootstrap.Modal(this.updateModalElement.nativeElement);
+    modal.show();
   }
 
   @ViewChild('updateModal') updateModalElement!: ElementRef;

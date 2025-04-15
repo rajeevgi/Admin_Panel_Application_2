@@ -102,16 +102,14 @@
 
 <!-- Update Button -->
 <div class="text-center pt-4">
-  <button class="btn btn-warning" 
-          data-bs-toggle="modal" 
-          data-bs-target="#updateModal"
-          (click)="openUpdateModal()">
+  <button class="btn btn-warning" (click)="openUpdateModal()"
+    *ngIf="user.role === 'Superadmin' || user.role ==='Admin'">
     Update a User/Admin
   </button>
 </div>
 
 <!-- PROFILE MODAL (Shared by both User & Admin) -->
-<div class="modal fade" id="profileModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<!-- <div class="modal fade" id="profileModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="profileModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -130,11 +128,40 @@
       </div>
     </div>
   </div>
+</div> -->
+
+<div class="modal fade" id="profileModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="profileModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="profileModalLabel">{{ selectedProfile?.username }}'s Profile</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="card shadow p-3 mb-4 bg-white rounded" style="max-width: 400px; margin: auto;">
+          <div class="card-body text-center">
+            <img src="https://codingyaar.com/wp-content/uploads/bootstrap-profile-card-image.jpg" class="card-img-top"
+              alt="User Image" />
+            <h5 class="card-title mt-2">{{ user.username }}</h5>
+            <p class="card-text"><strong>Email:</strong> {{ selectedProfile?.email }}</p>
+            <p class="card-text">
+              <span class="badge bg-info text-dark">{{ selectedProfile?.role }}</span>
+            </p>
+            <p *ngIf="user.created_by">
+              <small class="text-muted">Created by ID: {{ selectedProfile?.created_by }}</small>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Update Users Model -->
 <!-- The Modal -->
-<div class="modal fade" id="updateModal" #updateModal tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+<div class="modal fade" id="updateModal" #updateModal tabindex="-1" aria-labelledby="updateModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
 
@@ -144,28 +171,11 @@
       </div>
 
       <div class="modal-body">
-        <!-- <div *ngIf="modalRole === 'User'">
-          <ul class="list-group">
-            <li class="list-group-item" *ngFor="let user of filteredUsers" (click)="goToUpdateForm(user.id)" style="cursor: pointer;">
-              {{ user.username }} ({{ user.email }})
-            </li>
-          </ul>
-        </div>
-
-        <div *ngIf="modalRole === 'Admin'">
-          <ul class="list-group">
-            <li class="list-group-item" *ngFor="let admin of filteredAdmins" (click)="goToUpdateForm(admin.id)" style="cursor: pointer;">
-              {{ admin.username }} ({{ admin.email }})
-            </li>
-          </ul>
-        </div> -->
-        <!-- Just make sure you keep these sections -->
-
         <div *ngIf="filteredUsers.length > 0">
           <h6>Users</h6>
           <ul class="list-group mb-3">
             <li class="list-group-item" *ngFor="let user of filteredUsers" (click)="goToUpdateForm(user.id)"
-              style="cursor: pointer;">
+              data-bs-dismiss="modal" style="cursor: pointer;">
               {{ user.username }} ({{ user.email }})
             </li>
           </ul>
@@ -175,7 +185,7 @@
           <h6>Admins</h6>
           <ul class="list-group">
             <li class="list-group-item" *ngFor="let admin of filteredAdmins" (click)="goToUpdateForm(admin.id)"
-              style="cursor: pointer;">
+              data-bs-dismiss="modal" style="cursor: pointer;">
               {{ admin.username }} ({{ admin.email }})
             </li>
           </ul>
@@ -184,5 +194,25 @@
       </div>
 
     </div>
+  </div>
+</div>
+
+<!-- User's Profile -->
+<!-- Profile card shown only for normal users -->
+<div *ngIf="user.role === 'User'" class="card shadow p-3 mb-4 bg-white rounded" style="max-width: 400px; margin: auto;">
+  <div class="card-body text-center">
+    <img src="https://codingyaar.com/wp-content/uploads/bootstrap-profile-card-image.jpg" class="card-img-top"
+      alt="User Image" />
+    <h5 class="card-title mt-2">{{ user.username }}</h5>
+    <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+    <p class="card-text">
+      <span class="badge bg-info text-dark">{{ user.role }}</span>
+    </p>
+    <p *ngIf="user.created_by">
+      <small class="text-muted">Created by ID: {{ user.created_by }}</small>
+    </p>
+    <button class="btn btn-primary mt-2">
+      Edit Profile
+    </button>
   </div>
 </div>

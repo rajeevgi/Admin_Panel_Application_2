@@ -23,8 +23,13 @@ export class UsersFormComponent implements OnInit {
   loggedInRole : String = '';
   isUpdatedMode : boolean = false;
   id !: number;
+  isDataFetch:boolean = false
 
-  constructor(private userService: UserService, public router: Router, private route : ActivatedRoute) {}
+
+  constructor(private userService: UserService, 
+    public router: Router, private route : ActivatedRoute) {
+      
+    }
 
   ngOnInit(): void {
 
@@ -60,18 +65,20 @@ export class UsersFormComponent implements OnInit {
     });
   }
 
-  getUserById(id : number){
+  getUserById(id: number) {
     this.userService.getUserById(id).subscribe((res: any) => {
-      if(res && res.result){
-        this.formData = {
-          username: res.result.username,
-          email: res.result.email,
-          password: res.result.password,
-          role: res.result.role
-        };
+      console.log('API response:', res);
+  
+      if (res) {
+        this.isDataFetch = true
+
+        this.formData.username = res.username;
+        this.formData.email = res.email;
+        this.formData.password = res.password;
+        this.formData.role = res.role;
+        this.formData.created_by = res.created_by;
       }
     });
-    console.log('Detected role:', this.loggedInRole);
   }
   
 
