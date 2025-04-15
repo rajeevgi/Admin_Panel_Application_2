@@ -24,7 +24,7 @@
           <label for="role" class="form-label">Role</label>
           <select class="form-select" id="role" name="role" [(ngModel)]="formData.role" required>
             <option value="User">User</option>
-            <option value="Admin">Admin</option>
+            <option *ngIf="loggedInRole ==='Superadmin'" value="Admin">Admin</option>
           </select>
         </div>
 

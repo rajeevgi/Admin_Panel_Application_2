@@ -20,6 +20,7 @@ export class UsersFormComponent implements OnInit {
     created_by : null
   };
 
+  loggedInRole : String = '';
   isUpdatedMode : boolean = false;
   id !: number;
 
@@ -28,11 +29,17 @@ export class UsersFormComponent implements OnInit {
   ngOnInit(): void {
 
     let loggedInUser : any = null;
+    const superAdminData = sessionStorage.getItem('Superadmin-data');
+    const adminData = sessionStorage.getItem('Admin-data');
 
-    if(this.formData.role === 'Superadmin'){
+    if(superAdminData){
       loggedInUser = JSON.parse(sessionStorage.getItem('Superadmin-data') || '{}');
+      this.loggedInRole = 'Superadmin';
+    }else if(adminData){
+      loggedInUser = JSON.parse(adminData);
+      this.loggedInRole = 'Admin';
     }else{
-      loggedInUser = JSON.parse(sessionStorage.getItem('Admin-data') || '{}');
+      console.warn('No Valid Session Found!');
     }
 
     this.route.params.subscribe(params => {
@@ -64,6 +71,7 @@ export class UsersFormComponent implements OnInit {
         };
       }
     });
+    console.log('Detected role:', this.loggedInRole);
   }
   
 

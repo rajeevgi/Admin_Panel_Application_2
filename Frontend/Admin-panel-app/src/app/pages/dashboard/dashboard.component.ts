@@ -7,7 +7,6 @@ import { User } from '../../model/user';
 
 declare var bootstrap: any;
 
-
 @Component({
   selector: 'app-dashboard',
   imports: [CommonModule, FormsModule],
@@ -15,7 +14,8 @@ declare var bootstrap: any;
   styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent implements OnInit {
-  user: User = new User();
+  // user: User = new User();
+  user: Partial<User> = {};
 
   userList: any[] = [];
 
@@ -37,9 +37,11 @@ export class DashboardComponent implements OnInit {
     if (superAdminData) {
       const data = JSON.parse(superAdminData);
       this.loggedInUser = data?.id || 0;
+      this.user = { role: 'Superadmin' };
     } else if (adminData) {
       const data = JSON.parse(adminData);
       this.loggedInUser = data?.id || 0;
+      this.user = { role: 'Admin' };
     }
 
     this.getAllUsersAndAdmins();
@@ -106,25 +108,11 @@ export class DashboardComponent implements OnInit {
   }
 
   // Update User Modal
-  loggedInUser: number = 0;
+  loggedInUser: number = 0; // Fetching logged -in user's id.
 
   modalRole: String = '';
   filteredUsers: any[] = [];
   filteredAdmins: any[] = [];
-
-  // openUpdateModal(role: String) {
-  //   const createdByKey = this.loggedInUser;
-
-  //   if (role === 'User') {
-  //     this.filteredUsers = this.users.filter(
-  //       (u: any) => u.createdBy === createdByKey
-  //     );
-  //   } else if (role === 'Admin') {
-  //     this.filteredAdmins = this.admins.filter(
-  //       (a: any) => a.createdBy === createdByKey
-  //     );
-  //   }
-  // }
 
   openUpdateModal() {
     this.filteredUsers = this.users.filter(
