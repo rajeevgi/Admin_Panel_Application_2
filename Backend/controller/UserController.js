@@ -25,19 +25,29 @@ exports.login = (req, res) => {
 };
 
 
+const db = require("../config/database");
 exports.register = (req, res) => {
-    const { username, email, password, role, created_by } = req.body;
+    const { username, email, password, role } = req.body;
 
-    if(!username || !email || !password || !role || !created_by){
-        return res.status(400).json({ message : "All Fields are required!" });
+    if (!username || !email || !password || !role) {
+        return res.status(400).json({ message: "All fields are required!" });
     }
 
-    User.register(username, email, password, role, created_by, (err, result) => {
-        if (err) return res.status(500).json({ error: err.message });
+    const getMaxIdQuery = "Select MAX(id) AS maxId FROM users";
+    db.query(getMaxIdQuery, (err, results) => {
+        if (err) return res.status(500).json({ message: "Failed to get max id", error: err });
         
-        res.status(200).json({ message : "User registered Successfully...", result });
+        const maxId = results[0].maxId || 0;
+        const newId = maxId + 1;
+
+        User.register(newId, username, email, password, role, (err, result) => {
+            if (err) return res.status(500).json({ error: err.message });
+
+            res.status(200).json({ message: "User registered successfully", result });
+        });
     });
-}
+};
+
 
 exports.addUser = (req, res) => {
     const { username, email, password, role, created_by } = req.body;

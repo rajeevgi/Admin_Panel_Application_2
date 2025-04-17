@@ -15,12 +15,12 @@ exports.login = (email, password, callback) => {
   }
 };
 
-exports.register = (username, email, password, role, created_by, callback) => {
+exports.register = (id, username, email, password, role, callback) => {
     try {
-        const sql = "Insert into users (username, email, password, role, created_by) values(?,?,?,?,?)";
-        db.query(sql, [username, email, password, role, created_by], (err, result) => {
+        const sql = "Insert into users (id, username, email, password, role) values(?,?,?,?,?)";
+        db.query(sql, [id, username, email, password, role], (err, result) => {
             if (err) return callback(err, null);
-            callback(null, { id: result.insertId, email });
+            callback(null, { id: result.insertId || id, email });
         });
     } catch (error) {
         return res.status(500).json({ message : "Internal Server Error!" });
@@ -30,7 +30,7 @@ exports.register = (username, email, password, role, created_by, callback) => {
 exports.addUser = (username, email, password, role, created_by, callback) => {
     try {
         const sql = "Insert into users(username, email, password, role, created_by) values(?,?,?,?,?)";
-        db.query(sql, [username, email, password, role], (err, result) => {
+        db.query(sql, [username, email, password, role, created_by], (err, result) => {
             if (err) return callback(err, null);
             callback(null, { id: result.insertId, email });
         });

@@ -8,7 +8,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-                <!-- Super Admin Navigation -->
+                <!-- SuperAdmin/Admin Navigation -->
                 <ng-container *ngIf="role === 'Superadmin' || role === 'Admin'">
                     <li class="nav-item">
                         <a class="nav-link" type="button" aria-current="page" routerLink="/app-dashboard">Dashboard</a>
@@ -16,15 +16,10 @@
                     <li class="nav-item">
                         <a class="nav-link" type="button" aria-current="page" routerLink="/app-users-form">UsersForm</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" type="button" (click)="logout()">Logout</a>
-                    </li>
                 </ng-container>
-                <ng-container *ngIf="role === 'User'">
-                    <li class="nav-item">
-                        <a class="nav-link" type="button" (click)="logout()">Logout</a>
-                    </li>
-                </ng-container>
+                <li class="nav-item">
+                    <a class="nav-link" type="button" (click)="logout()">Logout</a>
+                </li>
             </ul>
         </div>
     </div>
