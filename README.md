@@ -1,10 +1,10 @@
-# User Management System
+# Admin Panel System
 
 A full-stack web application for managing users with secure login, registration, and role-based access control. The system supports three types of users: **User**, **Admin**, and **Superadmin**.
 
 ## 🔧 Tech Stack
 
-- **Frontend**: Angular 18, TypeScript, HTML, Tailwind CSS
+- **Frontend**: Angular 18, TypeScript, HTML, Bootstrap
 - **Backend**: Node.js, Express.js
 - **Database**: MySQL
 - **Authentication**: Session-based (or JWT, depending on implementation)
@@ -41,8 +41,8 @@ project-root/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/user-management-system.git
-cd user-management-system
+git clone https://github.com/rajeevgi/user-management-system.git
+cd admin-panel
 ```
 
 ---
