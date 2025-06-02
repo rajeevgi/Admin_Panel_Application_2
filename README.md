@@ -41,7 +41,7 @@ project-root/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/rajeevgi/user-management-system.git
+git clone https://github.com/rajeevgi/Admin_Panel_Application_2.git
 cd admin-panel
 ```
 
@@ -60,7 +60,7 @@ Make sure to create a `.env` file for DB connection:
 DB_HOST=localhost
 DB_USER=root
 DB_PASSWORD=yourpassword
-DB_NAME=user_management
+DB_NAME=admin_panel
 ```
 
 ---
@@ -90,6 +90,17 @@ Navigate to `http://localhost:4200/`
 ## 📷 Screenshots
 
 > *(Add screenshots here if you have them — login page, dashboard, user list, etc.)*
+> ![image](https://github.com/user-attachments/assets/88878f58-0027-40a0-ba4a-be934a7ae9c0) - Login Page
+> ![image](https://github.com/user-attachments/assets/0b9185ed-8339-48bb-8e94-a2bf5fd63bc4) - Register Page
+
+> ![image](https://github.com/user-attachments/assets/bad48a59-d27d-4f9d-b27a-78791043c82f) - SuperAdmin Dashboard (Tota-Users)
+> ![image](https://github.com/user-attachments/assets/7a8c9a34-ad70-4350-a7f2-0b34b55b3140) - SuperAdmin Dashboard (Total-Admins)
+> ![image](https://github.com/user-attachments/assets/9d5b58b3-e174-4083-958c-066e5c9214a7) - SuperAdmin Dashboard (User-profile)
+> ![image](https://github.com/user-attachments/assets/0b2fa028-9039-45de-aaf3-aafde2bf0fcd) - SuperAdmin Dashboard (Admin-profile)
+> ![image](https://github.com/user-attachments/assets/5bd5a1a6-7ce7-4008-afd8-0fa7b2aa07cf) - SuperAdmin Dashboard (User[Admin,User]-registration)
+> ![image](https://github.com/user-attachments/assets/d8fa986e-b3e4-40a3-817c-10a1b04e07bf) - SuperAdmin Dashboard (Update User[Admin,User])
+>![image](https://github.com/user-attachments/assets/94222860-48e4-432b-a789-9006fde6ca10) - Admin Dashboard
+> ![image](https://github.com/user-attachments/assets/9b19a1f3-d819-487a-ad3b-a9c9f933ec1b) - User Dashbaord
 
 ---
 
